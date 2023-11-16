@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InsurancePlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
 
@@ -21,8 +22,11 @@ Route::get('/', [HomeController::class,'index'])->name('home');
 // User
 Route::resource('users', UserController::class);
 
-// User
+// Patient
 Route::resource('patient', PatientController::class);
+
+// Insurance Plan
+Route::resource('insurance-plan', InsurancePlanController::class);
 
 
 
