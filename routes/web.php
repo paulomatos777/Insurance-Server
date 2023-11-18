@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InsurancePlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ProcedureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,13 @@ Route::resource('insurance-plan', InsurancePlanController::class);
 
 // Consulta
 Route::resource('appointment', AppointmentController::class);
+
+
+// Procedimento
+Route::resource('procedure', ProcedureController::class);
+
+// Médico
+Route::resource('doctor', DoctorController::class);
 
 
 
