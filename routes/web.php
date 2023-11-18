@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InsurancePlanController;
@@ -19,14 +20,17 @@ use App\Http\Controllers\PatientController;
 
 Route::get('/', [HomeController::class,'index'])->name('home');
 
-// User
+// Usuario
 Route::resource('users', UserController::class);
 
-// Patient
+// Paciente
 Route::resource('patient', PatientController::class);
 
-// Insurance Plan
+// Plano de Saude
 Route::resource('insurance-plan', InsurancePlanController::class);
+
+// Consulta
+Route::resource('appointment', AppointmentController::class);
 
 
 
