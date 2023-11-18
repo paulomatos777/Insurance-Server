@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\SpecialtyController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,29 +22,55 @@ use App\Http\Controllers\SpecialtyController;
 |
 */
 
-Route::get('/', [HomeController::class,'index'])->name('home');
+/** open route to store an account */
+Route::post('users', [UserController::class, 'store']);
 
-// Usuario
-Route::resource('users', UserController::class);
+/** protected group routes */
+Route::group(['middleware' => ['api']], function () {
 
-// Paciente
-Route::resource('patient', PatientController::class);
+    Route::group(['middleware' => 'jwt.auth'], function () {
 
-// Plano de Saude
-Route::resource('insurance-plan', InsurancePlanController::class);
+        Route::get('users', [UserController::class, 'index']);
 
-// Consulta
-Route::resource('appointment', AppointmentController::class);
+        // Paciente
+        Route::resource('patient', PatientController::class);
+
+        // Plano de Saude
+        Route::resource('insurance-plan', InsurancePlanController::class);
+
+        // Consulta
+        Route::resource('appointment', AppointmentController::class);
+
+        // Procedimento
+        Route::resource('procedure', ProcedureController::class);
+
+        // Médico
+        Route::resource('doctor', DoctorController::class);
+
+        // Especialidade
+        Route::resource('specialty', SpecialtyController::class);
+
+    });
+
+});
+
+/** login route */
+Route::post('/login', function(Request $request){
+    $credentials = $request->only(['email', 'password']);
+    if(!$token = auth()->attempt($credentials)){
+        abort(401, 'Sem autorização');
+    }
+
+    return response()->json([
+        'data'=> [
+            'token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]
+    ]);
+});
 
 
-// Procedimento
-Route::resource('procedure', ProcedureController::class);
-
-// Médico
-Route::resource('doctor', DoctorController::class);
-
-// Especialidade
-Route::resource('specialty', SpecialtyController::class);
 
 
 
