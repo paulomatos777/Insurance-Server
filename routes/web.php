@@ -8,6 +8,7 @@ use App\Http\Controllers\InsurancePlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProcedureController;
+use App\Http\Controllers\SpecialtyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::resource('procedure', ProcedureController::class);
 
 // Médico
 Route::resource('doctor', DoctorController::class);
+
+// Especialidade
+Route::resource('specialty', SpecialtyController::class);
 
 
 
