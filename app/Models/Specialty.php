@@ -13,4 +13,9 @@ class Specialty extends Model
     protected $table = 'specialty'; // Define o nome da tabela associada ao modelo
 
     protected $fillable = ['nome'];
+
+    public function doctor()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }

@@ -58,7 +58,7 @@ public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'email|unique:users,email,'.$id,
             // Add other validation rules as needed
         ]);
 

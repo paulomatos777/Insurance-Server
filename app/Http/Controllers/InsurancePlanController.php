@@ -48,8 +48,8 @@ class InsurancePlanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'plan_descricao' => 'required',
-            'plan_telefone' => 'required',
+            'plan_descricao',
+            'plan_telefone'
         ]);
 
         $plan = InsurancePlan::findOrFail($id);

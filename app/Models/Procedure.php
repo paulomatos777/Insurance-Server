@@ -11,5 +11,10 @@ class Procedure extends Model
 
     protected $table = 'procedure'; // Define o nome da tabela associada ao modelo
 
-    protected $fillable = ['nome', 'valor'];
+    protected $fillable = ['nome', 'valor', 'appointment_id'];
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

@@ -21,6 +21,10 @@ class AppointmentController extends Controller
             'hora' => 'required',
             'data' => 'required|date',
             'particular' => 'required',
+            'patient_id' => 'required',
+            'doctor_id' => 'required',
+            'patient_insurance_plan_id'
+
         ]);
 
         // Cria uma nova consulta usando Eloquent
@@ -48,10 +52,12 @@ class AppointmentController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'hora' => 'required',
-            'data' => 'required|date',
-            'particular' => 'required',
-            // Add other validation rules as needed
+            'hora',
+            'data' => 'date',
+            'particular',
+            'patient_id',
+            'doctor_id',
+            'patient_insurance_plan_id'
         ]);
 
         $appointment = Appointment::findOrFail($id);

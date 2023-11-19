@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InsurancePlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PatientInsurancePlanController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\SpecialtyController;
 use Illuminate\Http\Request;
@@ -23,14 +24,19 @@ use Illuminate\Http\Request;
 */
 
 /** open route to store an account */
-Route::post('users', [UserController::class, 'store']);
+// Route::post('users', [UserController::class, 'store']);
+
+/*como não foi implementado o gernecimaneto
+  de token e controle de autenticação
+, deixei essas rotas em aberto para teste do crud no front*/
+Route::resource('users', UserController::class);
 
 /** protected group routes */
 Route::group(['middleware' => ['api']], function () {
 
     Route::group(['middleware' => 'jwt.auth'], function () {
 
-        Route::get('users', [UserController::class, 'index']);
+        // Route::get('users', [UserController::class, 'index']);
 
         // Paciente
         Route::resource('patient', PatientController::class);
@@ -50,26 +56,33 @@ Route::group(['middleware' => ['api']], function () {
         // Especialidade
         Route::resource('specialty', SpecialtyController::class);
 
+        // Vínculo Plano e Paciente
+        Route::resource('patient-insurance', PatientInsurancePlanController::class);
+
     });
 
 });
 
 /** login route */
-Route::post('/login', function(Request $request){
+Route::post('/login', function (Request $request) {
     $credentials = $request->only(['email', 'password']);
-    if(!$token = auth()->attempt($credentials)){
+
+    if (!$token = auth()->attempt($credentials)) {
         abort(401, 'Sem autorização');
     }
 
+    // Obter o usuário autenticado
+    $user = auth()->user();
+
     return response()->json([
-        'data'=> [
+        'data' => [
+            'user' => $user,
             'token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]
+            'expires_in' => auth()->factory()->getTTL() * 60,
+        ],
     ]);
 });
-
 
 
 

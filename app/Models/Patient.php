@@ -15,5 +15,14 @@ class Patient extends Model
 
     protected $dates = ['nascimento']; // Converte automaticamente o campo 'nascimento' para um objeto Carbon
 
-    // Outros métodos ou propriedades conforme necessário
+    public function insurancePlans()
+    {
+        return $this->belongsToMany(InsurancePlan::class, 'patient_insurance_plan')
+            ->withPivot('contract_number');
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

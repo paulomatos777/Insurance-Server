@@ -57,9 +57,9 @@ class PatientController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nome' => 'required',
-            'nascimento' => 'required|date',
-            'telefone' => 'required',
+            'nome',
+            'nascimento' => 'date',
+            'telefone'
             // Add other validation rules as needed
         ]);
 

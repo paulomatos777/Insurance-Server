@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Procedure;
+use App\Models\PatientInsurancePlan;
 use Illuminate\Http\Request;
 
-class ProcedureController extends Controller
+class PatientInsurancePlanController extends Controller
 {
-      /**
+       /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Procedure::all();
+        return PatientInsurancePlan::all();
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required',
-            'valor' => 'required',
-            'appointment_id'
+            'contract_number' => 'required',
+            'insurance_plan_id',
+            'patient_id'
         ]);
 
         // Cria uma nova consulta usando Eloquent
-        $procedure = Procedure::create($request->all());
+        $patient_insurance_plan = PatientInsurancePlan::create($request->all());
 
         // Retorna apenas os dados do paciente criado e o status
         return [
             'status' => 'success',
-            'message' => 'Procedimento criado com sucesso!!',
-            'data' => $procedure,
+            'message' => 'Vínculo criado com sucesso!!',
+            'data' => $patient_insurance_plan,
         ];
     }
 
@@ -39,7 +39,7 @@ class ProcedureController extends Controller
      */
     public function show($id)
     {
-        return Procedure::findOrFail($id);
+        return PatientInsurancePlan::findOrFail($id);
     }
 
     /**
@@ -48,19 +48,19 @@ class ProcedureController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nome',
-            'valor',
-            'appointment_id'
+            'contract_number',
+            'insurance_plan_id',
+            'patient_id'
         ]);
 
-        $procedure = Procedure::findOrFail($id);
-        $procedure->update($request->all());
+        $patient_insurance_plan = PatientInsurancePlan::findOrFail($id);
+        $patient_insurance_plan->update($request->all());
 
         // Retorna uma resposta JSON com os dados atualizados e o status 200 (OK)
         return response()->json([
             'status' => 'success',
-            'message' => 'Procedimento alterado com sucesso!!',
-            'data' => $procedure,
+            'message' => 'Vínculo alterado com sucesso!!',
+            'data' => $patient_insurance_plan,
         ], 200);
     }
 
@@ -69,13 +69,13 @@ class ProcedureController extends Controller
      */
     public function destroy($id)
     {
-        $procedure = Procedure::findOrFail($id);
-        $procedure->delete();
+        $patient_insurance_plan = PatientInsurancePlan::findOrFail($id);
+        $patient_insurance_plan->delete();
 
         // Retorna uma resposta JSON com a mensagem de sucesso e o status 200 (OK)
         return response()->json([
             'status' => 'success',
-            'message' => 'Procedimento deletado com sucesso',
+            'message' => 'Vínculo deletado com sucesso',
         ], 200);
     }
 }

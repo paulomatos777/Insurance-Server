@@ -12,4 +12,10 @@ class InsurancePlan extends Model
     protected $table = 'insurance_plan'; // Define o nome da tabela associada ao modelo
 
     protected $fillable = ['plan_descricao', 'plan_telefone'];
+
+    public function patients()
+    {
+        return $this->belongsToMany(Patient::class, 'patient_insurance_plan')
+        ->withPivot('contract_number');
+    }
 }

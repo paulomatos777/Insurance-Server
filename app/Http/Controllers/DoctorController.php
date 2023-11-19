@@ -20,6 +20,7 @@ class DoctorController extends Controller
         $request->validate([
             'nome' => 'required',
             'crm' => 'required',
+            'specialty_id' => 'required'
         ]);
 
         // Cria uma nova consulta usando Eloquent
@@ -47,8 +48,9 @@ class DoctorController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nome' => 'required',
-            'crm' => 'required',
+            'nome',
+            'crm',
+            'specialty_id'
         ]);
 
         $doctor = Doctor::findOrFail($id);
