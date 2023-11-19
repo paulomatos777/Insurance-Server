@@ -23,8 +23,6 @@ class AppointmentController extends Controller
             'particular' => 'required',
             'patient_id' => 'required',
             'doctor_id' => 'required',
-            'patient_insurance_plan_id'
-
         ]);
 
         // Cria uma nova consulta usando Eloquent
@@ -57,7 +55,6 @@ class AppointmentController extends Controller
             'particular',
             'patient_id',
             'doctor_id',
-            'patient_insurance_plan_id'
         ]);
 
         $appointment = Appointment::findOrFail($id);

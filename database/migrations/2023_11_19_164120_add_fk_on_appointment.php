@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->foreign('patient_id')->references('id')->on('patient');
             $table->foreign('doctor_id')->references('id')->on('doctor');
-            $table->foreign('patient_insurance_plan_id')->references('id')->on('patient_insurance_plan');
+            $table->foreign('patient_insurance_plan_id')->references('id')->on('patient_insurance_plan')->nullable();
         });
     }
 
